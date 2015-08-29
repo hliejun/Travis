@@ -1,4 +1,15 @@
 {
-  "name": "Sample",
-  "app_id": ""
+  "name": "Travis",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/travis_api/get_contacts",
+      "proxyUrl": "http://localhost:8888/travis_api/get_contacts"
+    },
+    {
+      "path": "/travis_api/get_events",
+      "proxyUrl": "http://localhost:8888/travis_api/get_events"
+    }
+  ]
 }
+

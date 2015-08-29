@@ -41,16 +41,30 @@ angular.module('starter.controllers', ['ionic'])
   };
 })
 
-.controller('ContactsCtrl', function($scope, Contacts) {
-  $scope.contacts = Contacts.all();
-  $scope.remove = function(contact) {
-    Contacts.remove(contact);
-  };
+.controller('ContactsCtrl', function($scope, $http) {
+  // $scope.contacts = Contacts.all();
+
+  $scope.contacts = [];
+  var ajax = $http.get('/travis_api/get_contacts');  
+  ajax.success(function(response){
+    $scope.contacts = response.data;
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
 })
 
 .controller('ContactCtrl', function($scope, $stateParams, Contacts) {
   $scope.contact = Contacts.get($stateParams.contactId);
 })
 
-.controller('EventsCtrl', function($scope) {
+.controller('EventsCtrl', function($scope, $http) {
+  $scope.events = [];
+  var ajax = $http.get('/travis_api/get_events');  
+  ajax.success(function(response){
+    $scope.events = response.data;
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
 });
