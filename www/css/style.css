@@ -13,10 +13,15 @@
     -o-border-radius: 50%;
     border-radius: 50%;
 }
+
 img {
     display: inline;
     margin: 0 auto;
     height: 100%;
     width: auto;
 
+}
+
+.angular-google-map-container { 
+  height: 250px; 
 }

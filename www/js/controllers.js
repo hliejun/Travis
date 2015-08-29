@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -85,7 +85,125 @@ angular.module('starter.controllers', ['ionic'])
 
 })
 
-.controller('TravisCtrl', function($scope) {
+.controller('TravisCtrl', function($scope, $http) {
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
+  $scope.food_places = [];
+  $scope.tourism_places = [];
+  $scope.weather_info = [];
+
+  var ajax = $http.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139');
+  ajax.success(function(response){
+    $scope.weather_info = response;
+    console.log($scope.weather_info);
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
+
+  var auth = {
+      consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+      consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+      accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+      accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+      serviceProvider : {
+          signatureMethod : "HMAC-SHA1"
+      }
+  };
+
+  var terms = 'food';
+  // var near = 'San+Francisco';
+  var bounds = '37.900000,-122.500000|37.788022,-122.399797';
+
+  var accessor = {
+      consumerSecret : auth.consumerSecret,
+      tokenSecret : auth.accessTokenSecret
+  };
+  parameters = [];
+  parameters.push(['term', terms]);
+  // parameters.push(['location', near]);
+  parameters.push(['bounds', bounds]);
+  parameters.push(['limit', 3]);
+  parameters.push(['callback', 'cb']);
+  parameters.push(['oauth_consumer_key', auth.consumerKey]);
+  parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+  parameters.push(['oauth_token', auth.accessToken]);
+  parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+  var message = {
+      'action' : 'http://api.yelp.com/v2/search',
+      'method' : 'GET',
+      'parameters' : parameters
+  };
+
+  OAuth.setTimestampAndNonce(message);
+  OAuth.SignatureMethod.sign(message, accessor);
+
+  var parameterMap = OAuth.getParameterMap(message.parameters);
+  console.log(parameterMap);
+
+  $.ajax({
+      'url' : message.action,
+      'data' : parameterMap,
+      'dataType' : 'jsonp',
+      'jsonpCallback' : 'cb',
+      'success' : function(data, textStats, XMLHttpRequest) {
+          $scope.food_places = data["businesses"];
+
+          var auth = {
+              consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+              consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+              accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+              accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+              serviceProvider : {
+                  signatureMethod : "HMAC-SHA1"
+              }
+          };
+
+          var terms = 'tourist';
+          // var near = 'San+Francisco';
+          var bounds = '37.900000,-122.500000|37.788022,-122.399797';
+
+          var accessor = {
+              consumerSecret : auth.consumerSecret,
+              tokenSecret : auth.accessTokenSecret
+          };
+          parameters = [];
+          parameters.push(['term', terms]);
+          // parameters.push(['location', near]);
+          parameters.push(['bounds', bounds]);
+          parameters.push(['limit', 3]);
+          parameters.push(['callback', 'cb']);
+          parameters.push(['oauth_consumer_key', auth.consumerKey]);
+          parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+          parameters.push(['oauth_token', auth.accessToken]);
+          parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+          var message = {
+              'action' : 'http://api.yelp.com/v2/search',
+              'method' : 'GET',
+              'parameters' : parameters
+          };
+
+          OAuth.setTimestampAndNonce(message);
+          OAuth.SignatureMethod.sign(message, accessor);
+
+          var parameterMap = OAuth.getParameterMap(message.parameters);
+          console.log(parameterMap);
+
+          $.ajax({
+              'url' : message.action,
+              'data' : parameterMap,
+              'dataType' : 'jsonp',
+              'jsonpCallback' : 'cb',
+              'success' : function(data, textStats, XMLHttpRequest) {
+                  $scope.tourism_places = data["businesses"];
+                  $scope.$apply();
+              }
+          });
+
+      }
+  });
 
 })
 

@@ -1,33 +1,49 @@
 <ion-view view-title="Travis">
-  <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-avatar">
-        <img src="img/Sunny.png">
-        <h2>Weather now is SUNNY!</h2>
-        <p>Enjoy your day out in the sun :)</p>
-      </div>
-      <div class="item item-image">
-        <img src="img/beautiful_sunny_day.jpg">
-      </div>
-      <a class="item item-icon-left assertive" href="#">
-        <i class="icon ion-plus-round"></i>
-        More details!
-      </a>
+  <ion-content>
+    <div class="item item-divider">
+      Weather
     </div>
-
-    <div class="list card">
-      <div class="item item-avatar">
-        <img src="img/pig.jpg">
-        <h2>Nearest animal is a pig!</h2>
-        <p>Kill the pig for some delicious pork :)</p>
-      </div>
-      <div class="item item-image">
-        <img src="img/google_maps.jpg">
-      </div>
-      <a class="item item-icon-left assertive" href="#">
-        <i class="icon ion-plus-round"></i>
-        More details!
-      </a>
+    <ion-list>
+      <ion-item type="item-text-wrap">
+        <div class="row">
+          <div class="col">
+            <h1>{{weather_info.main.temp - 273.15 | number: 0}}<small> &degC</small></h1>
+          </div>
+          <div class="col" style="text-align: right;">
+            <p>{{weather_info.name}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p>{{weather_info.main.humidity}}% <small>HUMIDITY</small></p>
+            <p>{{weather_info.weather[0].description}}</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="item item-divider">
+      Location
     </div>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+    <div class="item item-divider">
+      Nearby Food
+    </div>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar" ng-repeat="food_place in food_places" type="item-text-wrap" href="#/app/browser">
+        <img src="{{food_place.image_url}}" />
+        <h3>{{food_place.name}}</h3>
+        <p>{{food_place.categories[0][0]}}</p>
+      </ion-item>
+    </ion-list>
+    <div class="item item-divider">
+      Nearby Recreation
+    </div>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar" ng-repeat="tourism_place in tourism_places" type="item-text-wrap" href="#/app/browser">
+        <img src="{{tourism_place.image_url}}" />
+        <h3>{{tourism_place.name}}</h3>
+        <p>{{tourism_place.categories[0][0]}}</p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
