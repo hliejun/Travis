@@ -54,15 +54,25 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 .controller('ContactCtrl', function($scope, $http, $stateParams) {
-    //$scope.contact = null;
-    var ajax = $http.get('/travis_api/get_contact/' + $stateParams.contactId);
-    ajax.success(function(response){
-      $scope.contact = response.data[0];
-    });
-    ajax.error(function(response){
-      alert('ajax error');
-    });
+  var ajax = $http.get('/travis_api/get_contact/' + $stateParams.contactId);
+  ajax.success(function(response){
+    $scope.contact = response.data[0];
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
 
+  $scope.callnumber = function(number) {
+    window.plugins.CallNumber.callNumber(onSuccess, onError, number);
+  }
+  function onSuccess()
+  {
+    alert('onSuccess');
+  }
+  function onError()
+  {
+    alert('onError');
+  }
 })
 
 .controller('EventCtrl', function($scope, $http, $stateParams) {
