@@ -50,6 +50,18 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('ContactCtrl', function($scope, $stateParams, Contacts) {
   $scope.contact = Contacts.get($stateParams.contactId);
+
+  $scope.callnumber = function(number) {
+    window.plugins.CallNumber.callNumber(onSuccess, onError, number);
+  }
+  function onSuccess()
+  {
+    alert('onSuccess');
+  }
+  function onError()
+  {
+    alert('onError');
+  }
 })
 
 .controller('EventsCtrl', function($scope) {

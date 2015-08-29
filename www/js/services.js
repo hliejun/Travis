@@ -5,30 +5,14 @@ angular.module('starter.services', [])
 
   // Some fake testing data
   var contacts = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+    contact_id: 0,
+    contact_name: 'Professor X',
+    contact_picture: 'http://static.comicvine.com/uploads/original/12/129116/4372263-5321356645-Profe.jpg',
+    contact_gender: 'male',
+    contact_address: 'Hines Road',
+    contact_tel_no: '79320130',
+    contact_mobile: '9024123',
+    contact_desc: 'Bald and handsome'
   }];
 
   return {
@@ -40,7 +24,7 @@ angular.module('starter.services', [])
     },
     get: function(contactId) {
       for (var i = 0; i < contacts.length; i++) {
-        if (contacts[i].id === parseInt(contactId)) {
+        if (contacts[i].contact_id === parseInt(contactId)) {
           return contacts[i];
         }
       }
