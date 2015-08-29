@@ -85,6 +85,10 @@ angular.module('starter.controllers', ['ionic'])
 
 })
 
+.controller('TravisCtrl', function($scope) {
+
+})
+
 .controller('ContactsCtrl', function($scope, $http) {
   // $scope.contacts = Contacts.all();
   $scope.contacts = [];
@@ -111,11 +115,11 @@ angular.module('starter.controllers', ['ionic'])
   }
   function onSuccess()
   {
-    alert('onSuccess');
+    //alert('onSuccess');
   }
   function onError()
   {
-    alert('onError');
+    //alert('onError');
   }
 })
 

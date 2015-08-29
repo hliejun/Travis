@@ -62,6 +62,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+  .state('app.travis', {
+    url: '/travis',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/travis.html',
+        controller: 'TravisCtrl'
+      }
+    }
+  })
+
 
   .state('app.events', {
       url: '/events',
