@@ -1,0 +1,29 @@
+<ion-view view-title="Events">
+  <ion-content>
+    <ion-list style="z-index: 0;">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="event in events" type="item-text-wrap" href="#/app/events/{{event.id}}">
+
+        <!-- <img ng-switch="{{event.category}}">
+          <img ng-switch-when="flight">img.src = "img/flight_event.png"</img>
+          <img ng-switch-when="hotel">img.src = "img/hotel_event.png"</img>
+          <img ng-switch-when="meeting">img.src = "img/meeting_event.png"</img>
+          <img ng-switch-when="entertainment">img.src = "img/entertainment_event.png"</img>
+          <img ng-switch-when="food">img.src = "img/food_event.png"</img>
+          <img ng-switch-when="outdoors">img.src = "img/outdoors_event.png"</img>
+          <img ng-switch-default>img.src = "img/default_event.png"</img>
+        </img> -->
+
+        <img ng-src="img/flight_event.png">
+
+        <h2>{{event.event_title}}</h2>
+        <p>{{event.event_start_datetime}}</p>
+
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(event)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
