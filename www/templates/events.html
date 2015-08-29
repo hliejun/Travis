@@ -1,7 +1,41 @@
 <ion-view view-title="Events">
   <ion-content>
+    <ion-item href="{{getFirstId()}}">
+      <div class="row">
+
+        <div class="col col-33">
+          <img ng-src="{{getFirstImage()}}" style="width: 100%;">
+        </div>
+
+        <div class="col col-66">
+          <div class="row row-66">
+            <h2> {{getFirstTitle()}} </h2>
+          </div>
+          <div class="row row-33">
+            <h2> {{getFirstDateTime()}} </h2>
+
+          </div>
+        </div>
+
+      </div>
+    </ion-item>
+
+    <!-- <timeline>
+    <timeline-event ng-repeat="event in events">
+      <timeline-badge class="{{event.event_category}}" when-visible="animateElementIn" when-not-visible="animateElementOut">
+        <i class="glyphicon {{event.event_category}}"></i>
+      </timeline-badge>
+      <timeline-panel class="{{event.event_category}}" when-visible="animateElementIn" when-not-visible="animateElementOut">
+        <timeline-heading>
+          <h4>{{event.event_title}}</h4>
+        </timeline-heading>
+        <p>{{event.event_start_datetime}}</p>
+      </timeline-panel>
+    </timeline-event>
+  </timeline> -->
+
     <ion-list style="z-index: 0;">
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="event in events" type="item-text-wrap" href="#/app/events/{{event.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="event in events" ng-if="$index > 0" type="item-text-wrap" href="#/app/events/{{event.event_id}}">
 
         <!-- <img ng-switch="{{event.category}}">
           <img ng-switch-when="flight">img.src = "img/flight_event.png"</img>
@@ -13,10 +47,11 @@
           <img ng-switch-default>img.src = "img/default_event.png"</img>
         </img> -->
 
-        <img ng-src="img/flight_event.png">
+        <img ng-src="{{getImage(event.event_category)}}">
 
         <h2>{{event.event_title}}</h2>
         <p>{{event.event_start_datetime}}</p>
+        <!-- <p>{{getImage(event.event_category)}}</p> -->
 
         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -25,5 +60,6 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
+
   </ion-content>
 </ion-view>

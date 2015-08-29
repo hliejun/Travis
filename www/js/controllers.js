@@ -54,8 +54,36 @@ angular.module('starter.controllers', ['ionic'])
   });
 })
 
-.controller('ContactCtrl', function($scope, $stateParams, Contacts) {
-  $scope.contact = Contacts.get($stateParams.contactId);
+.controller('ContactCtrl', function($scope, $stateParams) {
+  $scope.contact = null;
+
+  $scope.getContact = function() {
+    var ajax = $http.get('/travis_api/get_contact/' + $stateParams.contactId);
+    ajax.success(function(response){
+      $scope.contact = response.data;
+    });
+    ajax.error(function(response){
+      alert('ajax error');
+    });
+    return $scope.contact;
+  };
+
+})
+
+.controller('EventCtrl', function($scope, $stateParams) {
+  $scope.event = null;
+
+  $scope.getEvent = function() {
+    var ajax = $http.get('/travis_api/get_event/' + $stateParams.contactId);
+    ajax.success(function(response){
+      $scope.event = response.data;
+    });
+    ajax.error(function(response){
+      alert('ajax error');
+    });
+    return $scope.event;
+  };
+
 })
 
 .controller('EventsCtrl', function($scope, $http) {
@@ -67,4 +95,51 @@ angular.module('starter.controllers', ['ionic'])
   ajax.error(function(response){
     alert('ajax error');
   });
+
+  $scope.getFirstImage = function() {
+    if (!$scope.events !== null && $scope.events.length > 0) {
+      return "img/" + $scope.events[0].event_category + ".png";
+    } else {
+      return null;
+    }
+  };
+
+  $scope.getFirstTitle = function() {
+    if (!$scope.events !== null && $scope.events.length > 0) {
+      return $scope.events[0].event_title;
+    } else {
+      return null;
+    }
+  };
+
+  $scope.getFirstId = function() {
+    if (!$scope.events !== null && $scope.events.length > 0) {
+      return "#/app/events/" + $scope.events[0].event_id;
+    } else {
+      return null;
+    }
+  };
+
+  $scope.getFirstDateTime = function() {
+    if (!$scope.events !== null && $scope.events.length > 0) {
+      return $scope.events[0].event_start_datetime;
+    } else {
+      return null;
+    }
+  };
+
+  $scope.animateElementIn = function($el) {
+    $el.removeClass('hidden');
+    $el.addClass('animated fadeInUp'); // this example leverages animate.css classes
+  };
+
+  $scope.animateElementOut = function($el) {
+    $el.addClass('hidden');
+    $el.removeClass('animated fadeInUp'); // this example leverages animate.css classes
+  };
+
+  $scope.getImage = function($el) {
+    return "img/" + $el + ".png";
+  };
+
 });

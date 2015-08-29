@@ -69,7 +69,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'ContactCtrl'
       }
     }
+  })
+
+  .state('app.event', {
+    url: '/events/:eventId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/event.html',
+        controller: 'EventCtrl'
+      }
+    }
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/events');
 });
