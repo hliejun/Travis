@@ -4,11 +4,23 @@
   "proxies": [
     {
       "path": "/travis_api/get_contacts",
-      "proxyUrl": "http://192.168.43.74:8888/travis_api/get_contacts"
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_contacts"
     },
     {
       "path": "/travis_api/get_events",
-      "proxyUrl": "http://192.168.43.74:8888/travis_api/get_events"
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_events"
+    },
+    {
+      "path": "/travis_api/get_tickets",
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_tickets"
+    },
+    {
+      "path": "/travis_api/get_hotel_ticket",
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_hotel_ticket"
+    },
+    {
+      "path": "/travis_api/get_flight_ticket",
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_flight_ticket"
     }
   ]
 }

@@ -1,0 +1,28 @@
+<ion-view view-title="Flight Ticket">
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item">
+        <h2>Boarding Pass for {{flight_ticket.flight_ticket_flight_no}}</h2>
+      </div>
+      <div class="item item-body">
+        <p>Show this boarding pass at the departure gate.</p>
+        <p><small>DEPARTS</small> {{flight_ticket.ticket_start_datetime}}</p>
+        <p><small>FROM</small> {{flight_ticket.flight_ticket_airport}}</p>
+        <p><small>ARRIVES</small> {{flight_ticket.ticket_end_datetime}}</p>
+        <p><small>AT</small> {{flight_ticket.flight_ticket_destination}}</p>
+      </div>
+      <div class="item item-body">
+        <p><small>NAME</small> {{flight_ticket.employee_firstname}} {{flight_ticket.employee_lastname}}</p>
+        <p><small>PASSPORT NUMBER</small> E1234569C</p>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50 col-offset-25">
+            <img src='img/qr.jpg' style="width: 100%;" />
+            <p style="text-align: center;">Valid</p>
+          </div>
+        </div>    
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

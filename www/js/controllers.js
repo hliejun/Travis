@@ -41,6 +41,50 @@ angular.module('starter.controllers', ['ionic'])
   };
 })
 
+.controller('EticketsCtrl', function($scope, $http) {
+
+  $scope.flight_tickets = [];
+  $scope.hotel_tickets = [];
+
+  var ajax = $http.get('/travis_api/get_tickets');
+  ajax.success(function(response){
+    $scope.flight_tickets = response.data['flight_tickets'];
+    $scope.hotel_tickets = response.data['hotel_tickets'];
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
+
+})
+
+.controller('FlightTicketCtrl', function($scope, $http, $stateParams) {
+
+  $scope.flight_ticket = null;
+
+  var ajax = $http.get('/travis_api/get_flight_ticket/' + $stateParams.flight_ticket_id);
+  ajax.success(function(response){
+    $scope.flight_ticket = response.data[0];
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
+
+})
+
+.controller('HotelTicketCtrl', function($scope, $http, $stateParams) {
+
+  $scope.hotel_ticket = null;
+
+  var ajax = $http.get('/travis_api/get_hotel_ticket/' + $stateParams.hotel_ticket_id);
+  ajax.success(function(response){
+    $scope.hotel_ticket = response.data[0];
+  });
+  ajax.error(function(response){
+    alert('ajax error');
+  });
+
+})
+
 .controller('ContactsCtrl', function($scope, $http) {
   // $scope.contacts = Contacts.all();
 

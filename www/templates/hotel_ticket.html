@@ -1,0 +1,28 @@
+<ion-view view-title="Hotel Ticket">
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item">
+        <h2>Room Pass for {{hotel_ticket.hotel_ticket_hotel_name}}</h2>
+        <p>{{hotel_ticket.hotel_ticket_hotel_address}}</p>
+        <p>{{hotel_ticket.hotel_ticket_hotel_tel_no}}</p>
+      </div>
+      <div class="item item-body">
+        <p>Show this room pass when you check in at the hotel.</p>
+        <p><small>CHECK IN</small> {{hotel_ticket.ticket_start_datetime}}</p>
+        <p><small>CHECK OUT</small> {{hotel_ticket.ticket_end_datetime}}</p>
+      </div>
+      <div class="item item-body">
+        <p><small>NAME</small> {{hotel_ticket.employee_firstname}} {{hotel_ticket.employee_lastname}}</p>
+        <p><small>PASSPORT NUMBER</small> E1234569C</p>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50 col-offset-25">
+            <img src='img/qr.jpg' style="width: 100%;" />
+            <p style="text-align: center;">Valid</p>
+          </div>
+        </div>    
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

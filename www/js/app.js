@@ -36,10 +36,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/etickets',
     views: {
       'menuContent': {
-        templateUrl: 'templates/etickets.html'
+        templateUrl: 'templates/etickets.html',
+        controller: 'EticketsCtrl'
       }
     }
   })
+
+  .state('app.flight_ticket', {
+    url: '/flight_ticket/:flight_ticket_id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/flight_ticket.html',
+        controller: 'FlightTicketCtrl'
+      }
+    }
+  })
+
+  .state('app.hotel_ticket', {
+    url: '/hotel_ticket/:hotel_ticket_id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/hotel_ticket.html',
+        controller: 'HotelTicketCtrl'
+      }
+    }
+  })
+
 
   .state('app.events', {
       url: '/events',
