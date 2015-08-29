@@ -21,6 +21,14 @@
     {
       "path": "/travis_api/get_flight_ticket",
       "proxyUrl": "http://192.168.1.103:8888/travis_api/get_flight_ticket"
+    },
+    {
+      "path": "/travis_api/get_contact",
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_contact"
+    },
+    {
+      "path": "/travis_api/get_event",
+      "proxyUrl": "http://192.168.1.103:8888/travis_api/get_event"
     }
   ]
 }
