@@ -45,7 +45,7 @@ angular.module('starter.controllers', ['ionic'])
   // $scope.contacts = Contacts.all();
 
   $scope.contacts = [];
-  var ajax = $http.get('/travis_api/get_contacts');  
+  var ajax = $http.get('/travis_api/get_contacts');
   ajax.success(function(response){
     $scope.contacts = response.data;
   });
@@ -60,7 +60,7 @@ angular.module('starter.controllers', ['ionic'])
 
 .controller('EventsCtrl', function($scope, $http) {
   $scope.events = [];
-  var ajax = $http.get('/travis_api/get_events');  
+  var ajax = $http.get('/travis_api/get_events');
   ajax.success(function(response){
     $scope.events = response.data;
   });
