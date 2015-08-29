@@ -85,125 +85,281 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 })
 
-.controller('TravisCtrl', function($scope, $http) {
-  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+.controller('TravisCtrl', function($scope, $http, $ionicLoading) {
 
-  $scope.food_places = [];
-  $scope.tourism_places = [];
-  $scope.weather_info = [];
-
-  var ajax = $http.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139');
-  ajax.success(function(response){
-    $scope.weather_info = response;
-    console.log($scope.weather_info);
-  });
-  ajax.error(function(response){
-    alert('ajax error');
-  });
-
-  var auth = {
-      consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
-      consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
-      accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
-      accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
-      serviceProvider : {
-          signatureMethod : "HMAC-SHA1"
-      }
+  $scope.show = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
   };
 
-  var terms = 'food';
-  // var near = 'San+Francisco';
-  var bounds = '37.900000,-122.500000|37.788022,-122.399797';
+  var lat = 45;
+  var long = -73;
 
-  var accessor = {
-      consumerSecret : auth.consumerSecret,
-      tokenSecret : auth.accessTokenSecret
-  };
-  parameters = [];
-  parameters.push(['term', terms]);
-  // parameters.push(['location', near]);
-  parameters.push(['bounds', bounds]);
-  parameters.push(['limit', 3]);
-  parameters.push(['callback', 'cb']);
-  parameters.push(['oauth_consumer_key', auth.consumerKey]);
-  parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
-  parameters.push(['oauth_token', auth.accessToken]);
-  parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      } 
+  }
 
-  var message = {
-      'action' : 'http://api.yelp.com/v2/search',
-      'method' : 'GET',
-      'parameters' : parameters
-  };
+  function showPosition(position) {
+      lat = position.coords.latitude;
+      long = position.coords.longitude; 
+      
 
-  OAuth.setTimestampAndNonce(message);
-  OAuth.SignatureMethod.sign(message, accessor);
+      /////////////////////////////////////////////////////////////
+      // This is what happens when Wenqi doesn't sleep.
 
-  var parameterMap = OAuth.getParameterMap(message.parameters);
-  console.log(parameterMap);
+      $scope.map = { center: { latitude: lat, longitude: long }, zoom: 15 };
 
-  $.ajax({
-      'url' : message.action,
-      'data' : parameterMap,
-      'dataType' : 'jsonp',
-      'jsonpCallback' : 'cb',
-      'success' : function(data, textStats, XMLHttpRequest) {
-          $scope.food_places = data["businesses"];
+      $scope.food_places = [];
+      $scope.tourism_places = [];
+      $scope.weather_info = [];
 
-          var auth = {
-              consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
-              consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
-              accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
-              accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
-              serviceProvider : {
-                  signatureMethod : "HMAC-SHA1"
-              }
-          };
+      var ajax = $http.get('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long);
+      ajax.success(function(response){
+        $scope.weather_info = response;
+        console.log($scope.weather_info);
+      });
+      ajax.error(function(response){
+        alert('ajax error');
+      });
 
-          var terms = 'tourist';
-          // var near = 'San+Francisco';
-          var bounds = '37.900000,-122.500000|37.788022,-122.399797';
+      var auth = {
+          consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+          consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+          accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+          accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+          serviceProvider : {
+              signatureMethod : "HMAC-SHA1"
+          }
+      };
 
-          var accessor = {
-              consumerSecret : auth.consumerSecret,
-              tokenSecret : auth.accessTokenSecret
-          };
-          parameters = [];
-          parameters.push(['term', terms]);
-          // parameters.push(['location', near]);
-          parameters.push(['bounds', bounds]);
-          parameters.push(['limit', 3]);
-          parameters.push(['callback', 'cb']);
-          parameters.push(['oauth_consumer_key', auth.consumerKey]);
-          parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
-          parameters.push(['oauth_token', auth.accessToken]);
-          parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+      var terms = 'food';
+      // var near = 'San+Francisco';
+      var bounds = (lat + 0.1) + ',' + (long + 0.1) + '|' + (lat - 0.1) + ',' + (long - 0.1);
 
-          var message = {
-              'action' : 'http://api.yelp.com/v2/search',
-              'method' : 'GET',
-              'parameters' : parameters
-          };
+      var accessor = {
+          consumerSecret : auth.consumerSecret,
+          tokenSecret : auth.accessTokenSecret
+      };
+      parameters = [];
+      parameters.push(['term', terms]);
+      // parameters.push(['location', near]);
+      parameters.push(['bounds', bounds]);
+      parameters.push(['limit', 3]);
+      parameters.push(['callback', 'cb']);
+      parameters.push(['oauth_consumer_key', auth.consumerKey]);
+      parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+      parameters.push(['oauth_token', auth.accessToken]);
+      parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
 
-          OAuth.setTimestampAndNonce(message);
-          OAuth.SignatureMethod.sign(message, accessor);
+      var message = {
+          'action' : 'http://api.yelp.com/v2/search',
+          'method' : 'GET',
+          'parameters' : parameters
+      };
 
-          var parameterMap = OAuth.getParameterMap(message.parameters);
-          console.log(parameterMap);
+      OAuth.setTimestampAndNonce(message);
+      OAuth.SignatureMethod.sign(message, accessor);
 
-          $.ajax({
-              'url' : message.action,
-              'data' : parameterMap,
-              'dataType' : 'jsonp',
-              'jsonpCallback' : 'cb',
-              'success' : function(data, textStats, XMLHttpRequest) {
-                  $scope.tourism_places = data["businesses"];
-                  $scope.$apply();
-              }
-          });
+      var parameterMap = OAuth.getParameterMap(message.parameters);
+      console.log(parameterMap);
 
-      }
-  });
+      $.ajax({
+          'url' : message.action,
+          'data' : parameterMap,
+          'dataType' : 'jsonp',
+          'jsonpCallback' : 'cb',
+          'success' : function(data, textStats, XMLHttpRequest) {
+              $scope.food_places = data["businesses"];
+
+              var auth = {
+                  consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+                  consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+                  accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+                  accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+                  serviceProvider : {
+                      signatureMethod : "HMAC-SHA1"
+                  }
+              };
+
+              var terms = 'tourist';
+              // var near = 'San+Francisco';
+              var bounds = (lat + 0.1) + ',' + (long + 0.1) + '|' + (lat - 0.1) + ',' + (long - 0.1);
+
+              var accessor = {
+                  consumerSecret : auth.consumerSecret,
+                  tokenSecret : auth.accessTokenSecret
+              };
+              parameters = [];
+              parameters.push(['term', terms]);
+              // parameters.push(['location', near]);
+              parameters.push(['bounds', bounds]);
+              parameters.push(['limit', 3]);
+              parameters.push(['callback', 'cb']);
+              parameters.push(['oauth_consumer_key', auth.consumerKey]);
+              parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+              parameters.push(['oauth_token', auth.accessToken]);
+              parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+              var message = {
+                  'action' : 'http://api.yelp.com/v2/search',
+                  'method' : 'GET',
+                  'parameters' : parameters
+              };
+
+              OAuth.setTimestampAndNonce(message);
+              OAuth.SignatureMethod.sign(message, accessor);
+
+              var parameterMap = OAuth.getParameterMap(message.parameters);
+              console.log(parameterMap);
+
+              $.ajax({
+                  'url' : message.action,
+                  'data' : parameterMap,
+                  'dataType' : 'jsonp',
+                  'jsonpCallback' : 'cb',
+                  'success' : function(data, textStats, XMLHttpRequest) {
+                      $scope.tourism_places = data["businesses"];
+                      $scope.$apply();
+
+                      // FIN
+                      $scope.hide = function(){
+                        $ionicLoading.hide();
+                      };
+                  }
+              });
+
+          }
+      });
+
+      /////////////////////////////////////////////////////////////
+
+
+      $scope.$apply();
+  }
+
+  getLocation();
+
+  // $scope.map = { center: { latitude: lat, longitude: long }, zoom: 8 };
+
+  // $scope.food_places = [];
+  // $scope.tourism_places = [];
+  // $scope.weather_info = [];
+
+  // var ajax = $http.get('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long);
+  // ajax.success(function(response){
+  //   $scope.weather_info = response;
+  //   console.log($scope.weather_info);
+  // });
+  // ajax.error(function(response){
+  //   alert('ajax error');
+  // });
+
+  // var auth = {
+  //     consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+  //     consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+  //     accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+  //     accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+  //     serviceProvider : {
+  //         signatureMethod : "HMAC-SHA1"
+  //     }
+  // };
+
+  // var terms = 'food';
+  // // var near = 'San+Francisco';
+  // var bounds = (lat + 0.1) + ',' + (long + 0.1) + '|' + (lat - 0.1) + ',' + (long - 0.1);
+
+  // var accessor = {
+  //     consumerSecret : auth.consumerSecret,
+  //     tokenSecret : auth.accessTokenSecret
+  // };
+  // parameters = [];
+  // parameters.push(['term', terms]);
+  // // parameters.push(['location', near]);
+  // parameters.push(['bounds', bounds]);
+  // parameters.push(['limit', 3]);
+  // parameters.push(['callback', 'cb']);
+  // parameters.push(['oauth_consumer_key', auth.consumerKey]);
+  // parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+  // parameters.push(['oauth_token', auth.accessToken]);
+  // parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+  // var message = {
+  //     'action' : 'http://api.yelp.com/v2/search',
+  //     'method' : 'GET',
+  //     'parameters' : parameters
+  // };
+
+  // OAuth.setTimestampAndNonce(message);
+  // OAuth.SignatureMethod.sign(message, accessor);
+
+  // var parameterMap = OAuth.getParameterMap(message.parameters);
+  // console.log(parameterMap);
+
+  // $.ajax({
+  //     'url' : message.action,
+  //     'data' : parameterMap,
+  //     'dataType' : 'jsonp',
+  //     'jsonpCallback' : 'cb',
+  //     'success' : function(data, textStats, XMLHttpRequest) {
+  //         $scope.food_places = data["businesses"];
+
+  //         var auth = {
+  //             consumerKey : "-SJUkriYSjh5NJpzKDD-Gw",
+  //             consumerSecret : "pbo3DtegdG-LL7fcHFeUWBr9VT4",
+  //             accessToken : "1_v57ngeu3s3i7RAb3n4pMEqyts_uuOJ",
+  //             accessTokenSecret : "ruTgSK90jImnvL_Trx9Fej4rsU0",
+  //             serviceProvider : {
+  //                 signatureMethod : "HMAC-SHA1"
+  //             }
+  //         };
+
+  //         var terms = 'tourist';
+  //         // var near = 'San+Francisco';
+  //         var bounds = (lat + 0.1) + ',' + (long + 0.1) + '|' + (lat - 0.1) + ',' + (long - 0.1);
+
+  //         var accessor = {
+  //             consumerSecret : auth.consumerSecret,
+  //             tokenSecret : auth.accessTokenSecret
+  //         };
+  //         parameters = [];
+  //         parameters.push(['term', terms]);
+  //         // parameters.push(['location', near]);
+  //         parameters.push(['bounds', bounds]);
+  //         parameters.push(['limit', 3]);
+  //         parameters.push(['callback', 'cb']);
+  //         parameters.push(['oauth_consumer_key', auth.consumerKey]);
+  //         parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+  //         parameters.push(['oauth_token', auth.accessToken]);
+  //         parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+  //         var message = {
+  //             'action' : 'http://api.yelp.com/v2/search',
+  //             'method' : 'GET',
+  //             'parameters' : parameters
+  //         };
+
+  //         OAuth.setTimestampAndNonce(message);
+  //         OAuth.SignatureMethod.sign(message, accessor);
+
+  //         var parameterMap = OAuth.getParameterMap(message.parameters);
+  //         console.log(parameterMap);
+
+  //         $.ajax({
+  //             'url' : message.action,
+  //             'data' : parameterMap,
+  //             'dataType' : 'jsonp',
+  //             'jsonpCallback' : 'cb',
+  //             'success' : function(data, textStats, XMLHttpRequest) {
+  //                 $scope.tourism_places = data["businesses"];
+  //                 $scope.$apply();
+  //             }
+  //         });
+
+  //     }
+  // });
 
 })
 

@@ -5,37 +5,35 @@
   The Friends service returns an array of friend data
 -->
 
-<style>
-h3 {color:lightsteelblue; font-weight: 500;}
-h2 {color:black; font-weight: 100;}
-</style>
-
-<ion-view view-title="{{contact.contact_name}}">
-  <ion-content class="padding">
-    <div class="image-cropper">
-      <img ng-src="data:image/png;base64,{{contact.contact_picture}}" class="rounded">
+<ion-view view-title="Contact">
+  <ion-content>
+    <div class="row" style="padding-top: 20px; padding-bottom: 5px; padding-left: 20px; padding-right: 20px;">
+      <div class="col-33">
+        <div class="image-cropper">
+          <img ng-src="data:image/png;base64,{{contact.contact_picture}}" class="rounded">
+        </div>
+      </div>
+      <div class="col-44 -col-22">
+        <h4>{{contact.contact_name}}</h4>
+      </div>
     </div>
     <ion-list>
       <br>
       <ion-item ng-click="callnumber({{contact.contact_mobile}})">
-        <h3> Handphone Number: </h3>
-        <h2>{{contact.contact_mobile}}</h2>
+        <small>mobile</small>
+        <p>{{contact.contact_mobile}}</p>
       </ion-item>
       <ion-item>
-        <h3> Home Number: </h3>
-        {{contact.contact_tel_no}}
+        <small>home</small>
+        <p>{{contact.contact_tel_no}}</p>
       </ion-item>
       <ion-item>
-        <h3> Gender: </h3>
-        {{contact.contact_gender}}
+        <small>description</small>
+        <p>{{contact.contact_desc}}</p>
       </ion-item>
       <ion-item>
-        <h3> Description: </h3>
-        {{contact.contact_desc}}
-      </ion-item>
-      <ion-item>
-        <h3> Address: </h3>
-        {{contact.contact_address}}
+        <small>address</small>
+        <p>{{contact.contact_address}}</p>
       </ion-item>
     </ion-list>
   </ion-content>
