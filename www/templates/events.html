@@ -1,18 +1,18 @@
 <ion-view view-title="Events">
   <ion-content>
-    <ion-item href="{{getFirstId()}}">
+    <ion-item href="#/app/events/{{firstevent.event_id}}">
       <div class="row">
 
         <div class="col col-33">
-          <img ng-src="{{getFirstImage()}}" style="width: 100%;">
+          <img ng-src="{{getImage(firstevent.event_category)}}" style="width: 100%;">
         </div>
 
         <div class="col col-66">
           <div class="row row-66">
-            <h2> {{getFirstTitle()}} </h2>
+            <h2 style="font-size: 26px;"> {{firstevent.event_title}} </h2>
           </div>
-          <div class="row row-33">
-            <h2> {{getFirstDateTime()}} </h2>
+          <div class="row row-33" style="padding:5px">
+            <h2 style="font-size: 18px;"> {{firstevent.event_start_datetime}} </h2>
 
           </div>
         </div>
