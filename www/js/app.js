@@ -111,6 +111,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     }
   })
 
+  .state('app.new_event', {
+    url: '/new_event',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new_event.html'
+      }
+    }
+  })
+
   .state('app.event', {
     url: '/events/:eventId',
     views: {

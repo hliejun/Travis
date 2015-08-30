@@ -413,7 +413,42 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 })
 
+.controller('NewEventCtrl', function($scope) {
+    
+})
+
 .controller('EventsCtrl', function($scope, $http) {
+
+  // // Form data for the login modal
+  // $scope.eventData = {};
+
+  // // Create the login modal that we will use later
+  // $ionicModal.fromTemplateUrl('templates/new_event.html', {
+  //   scope: $scope
+  // }).then(function(modal) {
+  //   $scope.modal = modal;
+  // });
+
+  // // Triggered in the login modal to close it
+  // $scope.closeNewEvent = function() {
+  //   $scope.modal.hide();
+  // };
+
+  // // Open the login modal
+  // $scope.newEvent = function() {
+  //   $scope.modal.show();
+  // };
+
+  // // Perform the login action when the user submits the login form
+  // $scope.createEvent = function() {
+  //   console.log('Creating event', $scope.eventData);
+  //   $timeout(function() {
+  //     $scope.closeNewEvent();
+  //   }, 1000);
+  // };
+
+  ////////////////////////////////////////////////////////////////
+
   $scope.events = [];
   $scope.firstevent = null;
   var ajax = $http.get('/travis_api/get_events');

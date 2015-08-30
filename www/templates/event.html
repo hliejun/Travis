@@ -5,11 +5,30 @@
   The Friends service returns an array of friend data
 -->
 
-<ion-view view-title="{{event.event_title}}">
+<!-- <ion-view view-title="{{event.event_title}}">
   <ion-content class="padding">
     <img src="{{getImage(event.event_category)}}" style="width: 64px; height: 64px">
     <p>{{event.event_start_datetime}}</p>
     <p>{{event.event_end_datetime}}</p>
 
   </ion-content>
+</ion-view> -->
+
+<ion-view view-title="Event">
+	<ion-content class="padding">
+	    <div class="list card">
+	      <div class="item">
+	        <h2>{{event.event_title}}</h2>
+	        <small>{{event.event_category}}</small>
+	      </div>
+	      <div class="item item-body">
+	        <p><small>FROM</small> {{event.event_start_datetime}}</p>
+	        <p><small>TO</small> {{event.event_end_datetime}}</p>
+	      </div>
+	      <div class="item item-body">
+	        <p><small>LOCATION</small> </p>
+	        <p>{{event.event_address}}</p>
+	      </div>
+	   	</div>
+  	</ion-content>
 </ion-view>

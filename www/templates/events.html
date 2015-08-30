@@ -16,11 +16,10 @@
 
           </div>
         </div>
-
       </div>
     </ion-item>
 
-    <!-- <timeline>
+<!--     <timeline>
     <timeline-event ng-repeat="event in events">
       <timeline-badge class="{{event.event_category}}" when-visible="animateElementIn" when-not-visible="animateElementOut">
         <i class="glyphicon {{event.event_category}}"></i>
@@ -33,6 +32,7 @@
       </timeline-panel>
     </timeline-event>
   </timeline> -->
+
 
     <ion-list style="z-index: 0;">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="event in events" ng-if="$index > 0" type="item-text-wrap" href="#/app/events/{{event.event_id}}">
@@ -51,6 +51,8 @@
 
         <h2>{{event.event_title}}</h2>
         <p>{{event.event_start_datetime}}</p>
+
+
         <!-- <p>{{getImage(event.event_category)}}</p> -->
 
         <i class="icon ion-chevron-right icon-accessory"></i>
