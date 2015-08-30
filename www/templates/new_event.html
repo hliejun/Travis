@@ -1,6 +1,35 @@
 <ion-view view-title="New Event">
   <ion-content>
-
-
+    <form type="text/plain" ng-submit="createEvent(eventData)">
+      <div class="list list-inset">
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Event Title</span>
+          <input type="text" ng-model="eventData.event_title" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Event Address</span>
+          <input type="text" ng-model="eventData.event_address" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Start Date</span>
+          <input type="date" ng-model="eventData.event_start_date" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Start Time</span>
+          <input type="time" ng-model="eventData.event_start_time" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">End Date</span>
+          <input type="date" ng-model="eventData.event_end_date" />
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">End Time</span>
+          <input type="time" ng-model="eventData.event_end_time" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Create Event</button>
+        </label>
+      </div>
+    </form>
   </ion-content>
 </ion-view>

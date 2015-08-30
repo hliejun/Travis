@@ -115,7 +115,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'uiGmapgoogle-maps'])
     url: '/new_event',
     views: {
       'menuContent': {
-        templateUrl: 'templates/new_event.html'
+        templateUrl: 'templates/new_event.html',
+        controller: 'NewEventCtrl'
       }
     }
   })

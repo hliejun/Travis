@@ -29,6 +29,10 @@
     {
       "path": "/travis_api/get_event",
       "proxyUrl": "http://localhost:8888/travis_api/get_event"
+    },
+    {
+      "path": "/travis_api/new_event",
+      "proxyUrl": "http://localhost:8888/travis_api/new_event"
     }
   ]
 }

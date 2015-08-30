@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
   $scope.flight_tickets = [];
   $scope.hotel_tickets = [];
 
-  var ajax = $http.get('/travis_api/get_tickets');
+  var ajax = $http.get('http://localhost:8888/travis_api/get_tickets');
   ajax.success(function(response){
     $scope.flight_tickets = response.data['flight_tickets'];
     $scope.hotel_tickets = response.data['hotel_tickets'];
@@ -61,7 +61,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
   $scope.flight_ticket = null;
 
-  var ajax = $http.get('/travis_api/get_flight_ticket/' + $stateParams.flight_ticket_id);
+  var ajax = $http.get('http://localhost:8888/travis_api/get_flight_ticket/' + $stateParams.flight_ticket_id);
   ajax.success(function(response){
     $scope.flight_ticket = response.data[0];
   });
@@ -75,7 +75,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
   $scope.hotel_ticket = null;
 
-  var ajax = $http.get('/travis_api/get_hotel_ticket/' + $stateParams.hotel_ticket_id);
+  var ajax = $http.get('http://localhost:8888/travis_api/get_hotel_ticket/' + $stateParams.hotel_ticket_id);
   ajax.success(function(response){
     $scope.hotel_ticket = response.data[0];
   });
@@ -366,7 +366,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 .controller('ContactsCtrl', function($scope, $http) {
   // $scope.contacts = Contacts.all();
   $scope.contacts = [];
-  var ajax = $http.get('/travis_api/get_contacts');
+  var ajax = $http.get('http://localhost:8888/travis_api/get_contacts');
   ajax.success(function(response){
     $scope.contacts = response.data;
   });
@@ -376,7 +376,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 })
 
 .controller('ContactCtrl', function($scope, $http, $stateParams) {
-  var ajax = $http.get('/travis_api/get_contact/' + $stateParams.contactId);
+  var ajax = $http.get('http://localhost:8888/travis_api/get_contact/' + $stateParams.contactId);
   ajax.success(function(response){
     $scope.contact = response.data[0];
   });
@@ -399,7 +399,7 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 .controller('EventCtrl', function($scope, $http, $stateParams) {
     //$scope.event = null;
-    var ajax = $http.get('/travis_api/get_event/' + $stateParams.eventId);
+    var ajax = $http.get('http://localhost:8888/travis_api/get_event/' + $stateParams.eventId);
     ajax.success(function(response){
       $scope.event = response.data[0];
     });
@@ -413,14 +413,33 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
 
 })
 
-.controller('NewEventCtrl', function($scope) {
+.controller('NewEventCtrl', function($scope, $http) {
+
+  $scope.createEvent = function(eventData) {
     
+    var postData = {
+      event_title: eventData.event_title,
+      event_address: eventData.event_address,
+      event_start_date: eventData.event_start_date,
+      event_start_time: eventData.event_start_time,
+      event_end_date: eventData.event_end_date,
+      event_end_time: eventData.event_end_time
+    };
+
+    postData = JSON.stringify(postData);
+
+    var ajax = $http.post('http://localhost:8888/travis_api/new_event', postData).
+      then(function(response){
+        // $scope.$apply(function() { $location.path("/app/events"); });
+      }, function(response){
+        // Error
+      });
+  };
 })
 
 .controller('EventsCtrl', function($scope, $http) {
 
-  // // Form data for the login modal
-  // $scope.eventData = {};
+  // Form data for the login modal
 
   // // Create the login modal that we will use later
   // $ionicModal.fromTemplateUrl('templates/new_event.html', {
@@ -439,19 +458,13 @@ angular.module('starter.controllers', ['ionic', 'uiGmapgoogle-maps'])
   //   $scope.modal.show();
   // };
 
-  // // Perform the login action when the user submits the login form
-  // $scope.createEvent = function() {
-  //   console.log('Creating event', $scope.eventData);
-  //   $timeout(function() {
-  //     $scope.closeNewEvent();
-  //   }, 1000);
-  // };
+  // Perform the login action when the user submits the login form
 
   ////////////////////////////////////////////////////////////////
 
   $scope.events = [];
   $scope.firstevent = null;
-  var ajax = $http.get('/travis_api/get_events');
+  var ajax = $http.get('http://localhost:8888/travis_api/get_events');
   ajax.success(function(response){
     $scope.events = response.data;
     $scope.firstevent = response.data[0];
